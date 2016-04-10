@@ -1,0 +1,611 @@
+
+<!DOCTYPE html>
+<html>
+<!-- ARLOG SERVER: USSEAMOBILE15 LOCAL_IP: 192.168.5.141 MERCH_KEY: MerchData_4_2_155_150934_***_68 -->
+
+    <head>
+        <title>Tanqueray Tom Collins Recipe - Allrecipes.com</title>
+            <meta property="og:title" content="Tanqueray Tom Collins Recipe" />
+    
+        <meta property="og:site_name" content="Allrecipes" />
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            <meta id="metaDescription" name="description" content="The rich juniper flavor and full botanicals of Tanqueray(R) London dry gin makes it the obvious choice for a classic gin cocktail.">
+            <meta property="og:description" content="The rich juniper flavor and full botanicals of Tanqueray(R) London dry gin makes it the obvious choice for a classic gin cocktail." />
+                            <meta name="robots" content="noodp,noydir,noindex,follow" />
+
+        
+
+            <link id="canonicalUrl" rel="canonical" href="http://allrecipes.com/recipe/150934/tanqueray-tom-collins/" />
+                <meta property="og:url" content="http://allrecipes.com/recipe/150934/tanqueray-tom-collins/" />
+        
+        <link href='http://css01.media-allrecipes.com/assets/deployables/v-1.17.0.887/main-css.bundled.Css' rel='stylesheet'/>
+        
+
+    
+        
+                                    <meta property="og:type" content="article" />
+                    <meta property="og:image" content="http://images.media-allrecipes.com/userphotos/250x250/985443.jpg"/>
+        <meta property="fb:app_id" content="66102450266" />
+        <script type="text/javascript">
+            window.NREUM||(NREUM={}),__nr_require=function(t,e,n){function r(n){if(!e[n]){var o=e[n]={exports:{}};t[n][0].call(o.exports,function(e){var o=t[n][1][e];return r(o||e)},o,o.exports)}return e[n].exports}if("function"==typeof __nr_require)return __nr_require;for(var o=0;o<n.length;o++)r(n[o]);return r}({QJf3ax:[function(t,e){function n(t){function e(e,n,a){t&&t(e,n,a),a||(a={});for(var c=s(e),f=c.length,u=i(a,o,r),d=0;f>d;d++)c[d].apply(u,n);return u}function a(t,e){f[t]=s(t).concat(e)}function s(t){return f[t]||[]}function c(){return n(e)}var f={};return{on:a,emit:e,create:c,listeners:s,_events:f}}function r(){return{}}var o="nr@context",i=t("gos");e.exports=n()},{gos:"7eSDFh"}],ee:[function(t,e){e.exports=t("QJf3ax")},{}],3:[function(t){function e(t){try{i.console&&console.log(t)}catch(e){}}var n,r=t("ee"),o=t(1),i={};try{n=localStorage.getItem("__nr_flags").split(","),console&&"function"==typeof console.log&&(i.console=!0,-1!==n.indexOf("dev")&&(i.dev=!0),-1!==n.indexOf("nr_dev")&&(i.nrDev=!0))}catch(a){}i.nrDev&&r.on("internal-error",function(t){e(t.stack)}),i.dev&&r.on("fn-err",function(t,n,r){e(r.stack)}),i.dev&&(e("NR AGENT IN DEVELOPMENT MODE"),e("flags: "+o(i,function(t){return t}).join(", ")))},{1:22,ee:"QJf3ax"}],4:[function(t){function e(t,e,n,i,s){try{c?c-=1:r("err",[s||new UncaughtException(t,e,n)])}catch(f){try{r("ierr",[f,(new Date).getTime(),!0])}catch(u){}}return"function"==typeof a?a.apply(this,o(arguments)):!1}function UncaughtException(t,e,n){this.message=t||"Uncaught error with no additional information",this.sourceURL=e,this.line=n}function n(t){r("err",[t,(new Date).getTime()])}var r=t("handle"),o=t(6),i=t("ee"),a=window.onerror,s=!1,c=0;t("loader").features.err=!0,t(5),window.onerror=e;try{throw new Error}catch(f){"stack"in f&&(t(1),t(2),"addEventListener"in window&&t(3),window.XMLHttpRequest&&XMLHttpRequest.prototype&&XMLHttpRequest.prototype.addEventListener&&window.XMLHttpRequest&&XMLHttpRequest.prototype&&XMLHttpRequest.prototype.addEventListener&&!/CriOS/.test(navigator.userAgent)&&t(4),s=!0)}i.on("fn-start",function(){s&&(c+=1)}),i.on("fn-err",function(t,e,r){s&&(this.thrown=!0,n(r))}),i.on("fn-end",function(){s&&!this.thrown&&c>0&&(c-=1)}),i.on("internal-error",function(t){r("ierr",[t,(new Date).getTime(),!0])})},{1:9,2:8,3:6,4:10,5:3,6:23,ee:"QJf3ax",handle:"D5DuLP",loader:"G9z0Bl"}],5:[function(t){function e(){}if(window.performance&&window.performance.timing&&window.performance.getEntriesByType){var n=t("ee"),r=t("handle"),o=t(1),i=t(2);t("loader").features.stn=!0,t(3);var a=Event;n.on("fn-start",function(t){var e=t[0];e instanceof a&&(this.bstStart=Date.now())}),n.on("fn-end",function(t,e){var n=t[0];n instanceof a&&r("bst",[n,e,this.bstStart,Date.now()])}),o.on("fn-start",function(t,e,n){this.bstStart=Date.now(),this.bstType=n}),o.on("fn-end",function(t,e){r("bstTimer",[e,this.bstStart,Date.now(),this.bstType])}),i.on("fn-start",function(){this.bstStart=Date.now()}),i.on("fn-end",function(t,e){r("bstTimer",[e,this.bstStart,Date.now(),"requestAnimationFrame"])}),n.on("pushState-start",function(){this.time=Date.now(),this.startPath=location.pathname+location.hash}),n.on("pushState-end",function(){r("bstHist",[location.pathname+location.hash,this.startPath,this.time])}),"addEventListener"in window.performance&&(window.performance.addEventListener("webkitresourcetimingbufferfull",function(){r("bstResource",[window.performance.getEntriesByType("resource")]),window.performance.webkitClearResourceTimings()},!1),window.performance.addEventListener("resourcetimingbufferfull",function(){r("bstResource",[window.performance.getEntriesByType("resource")]),window.performance.clearResourceTimings()},!1)),document.addEventListener("scroll",e,!1),document.addEventListener("keypress",e,!1),document.addEventListener("click",e,!1)}},{1:9,2:8,3:7,ee:"QJf3ax",handle:"D5DuLP",loader:"G9z0Bl"}],6:[function(t,e){function n(t){i.inPlace(t,["addEventListener","removeEventListener"],"-",r)}function r(t){return t[1]}var o=t("ee").create(),i=t(1)(o),a=t("gos");if(e.exports=o,n(window),"getPrototypeOf"in Object){for(var s=document;s&&!s.hasOwnProperty("addEventListener");)s=Object.getPrototypeOf(s);s&&n(s);for(var c=XMLHttpRequest.prototype;c&&!c.hasOwnProperty("addEventListener");)c=Object.getPrototypeOf(c);c&&n(c)}else XMLHttpRequest.prototype.hasOwnProperty("addEventListener")&&n(XMLHttpRequest.prototype);o.on("addEventListener-start",function(t,e){function n(){return s}if(t[1]){var r=t[1];if("function"==typeof r){var s=a(r,"nr@wrapped",function(){return i(r,"fn-",n,r.name||"anonymous")});this.wrapped=t[1]=s,o.emit("initEventContext",[t,e],this.wrapped)}else"function"==typeof r.handleEvent&&i.inPlace(r,["handleEvent"],"fn-")}}),o.on("removeEventListener-start",function(t){var e=this.wrapped;e&&(t[1]=e)})},{1:24,ee:"QJf3ax",gos:"7eSDFh"}],7:[function(t,e){var n=t("ee").create(),r=t(1)(n);e.exports=n,r.inPlace(window.history,["pushState","replaceState"],"-")},{1:24,ee:"QJf3ax"}],8:[function(t,e){var n=t("ee").create(),r=t(1)(n);e.exports=n,r.inPlace(window,["requestAnimationFrame","mozRequestAnimationFrame","webkitRequestAnimationFrame","msRequestAnimationFrame"],"raf-"),n.on("raf-start",function(t){t[0]=r(t[0],"fn-")})},{1:24,ee:"QJf3ax"}],9:[function(t,e){function n(t,e,n){t[0]=i(t[0],"fn-",null,n)}function r(t,e,n){function r(){return a}this.ctx={};var a={"nr@context":this.ctx};o.emit("initTimerContext",[t,n],a),t[0]=i(t[0],"fn-",r,n)}var o=t("ee").create(),i=t(1)(o);e.exports=o,i.inPlace(window,["setTimeout","setImmediate"],"setTimer-"),i.inPlace(window,["setInterval"],"setInterval-"),i.inPlace(window,["clearTimeout","clearImmediate"],"clearTimeout-"),o.on("setInterval-start",n),o.on("setTimer-start",r)},{1:24,ee:"QJf3ax"}],10:[function(t,e){function n(){f.inPlace(this,p,"fn-",o)}function r(t,e){f.inPlace(e,["onreadystatechange"],"fn-")}function o(t,e){return e}function i(t,e){for(var n in t)e[n]=t[n];return e}var a=t("ee").create(),s=t(1),c=t(2),f=c(a),u=c(s),d=window.XMLHttpRequest,p=["onload","onerror","onabort","onloadstart","onloadend","onprogress","ontimeout"];e.exports=a,window.XMLHttpRequest=function(t){var e=new d(t);try{a.emit("new-xhr",[],e),e.hasOwnProperty("addEventListener")&&u.inPlace(e,["addEventListener","removeEventListener"],"-",o),e.addEventListener("readystatechange",n,!1)}catch(r){try{a.emit("internal-error",[r])}catch(i){}}return e},i(d,XMLHttpRequest),XMLHttpRequest.prototype=d.prototype,f.inPlace(XMLHttpRequest.prototype,["open","send"],"-xhr-",o),a.on("send-xhr-start",r),a.on("open-xhr-start",r)},{1:6,2:24,ee:"QJf3ax"}],11:[function(t){function e(t){var e=this.params,r=this.metrics;if(!this.ended){this.ended=!0;for(var i=0;c>i;i++)t.removeEventListener(s[i],this.listener,!1);if(!e.aborted){if(r.duration=(new Date).getTime()-this.startTime,4===t.readyState){e.status=t.status;var a=t.responseType,f="arraybuffer"===a||"blob"===a||"json"===a?t.response:t.responseText,u=n(f);if(u&&(r.rxSize=u),this.sameOrigin){var d=t.getResponseHeader("X-NewRelic-App-Data");d&&(e.cat=d.split(", ").pop())}}else e.status=0;r.cbTime=this.cbTime,o("xhr",[e,r,this.startTime])}}}function n(t){if("string"==typeof t&&t.length)return t.length;if("object"!=typeof t)return void 0;if("undefined"!=typeof ArrayBuffer&&t instanceof ArrayBuffer&&t.byteLength)return t.byteLength;if("undefined"!=typeof Blob&&t instanceof Blob&&t.size)return t.size;if("undefined"!=typeof FormData&&t instanceof FormData)return void 0;try{return JSON.stringify(t).length}catch(e){return void 0}}function r(t,e){var n=i(e),r=t.params;r.host=n.hostname+":"+n.port,r.pathname=n.pathname,t.sameOrigin=n.sameOrigin}if(window.XMLHttpRequest&&XMLHttpRequest.prototype&&XMLHttpRequest.prototype.addEventListener&&!/CriOS/.test(navigator.userAgent)){t("loader").features.xhr=!0;var o=t("handle"),i=t(2),a=t("ee"),s=["load","error","abort","timeout"],c=s.length,f=t(1),u=window.XMLHttpRequest;t(4),t(3),a.on("new-xhr",function(){this.totalCbs=0,this.called=0,this.cbTime=0,this.end=e,this.ended=!1,this.xhrGuids={}}),a.on("open-xhr-start",function(t){this.params={method:t[0]},r(this,t[1]),this.metrics={}}),a.on("open-xhr-end",function(t,e){"loader_config"in NREUM&&"xpid"in NREUM.loader_config&&this.sameOrigin&&e.setRequestHeader("X-NewRelic-ID",NREUM.loader_config.xpid)}),a.on("send-xhr-start",function(t,e){var r=this.metrics,o=t[0],i=this;if(r&&o){var f=n(o);f&&(r.txSize=f)}this.startTime=(new Date).getTime(),this.listener=function(t){try{"abort"===t.type&&(i.params.aborted=!0),("load"!==t.type||i.called===i.totalCbs&&(i.onloadCalled||"function"!=typeof e.onload))&&i.end(e)}catch(n){try{a.emit("internal-error",[n])}catch(r){}}};for(var u=0;c>u;u++)e.addEventListener(s[u],this.listener,!1)}),a.on("xhr-cb-time",function(t,e,n){this.cbTime+=t,e?this.onloadCalled=!0:this.called+=1,this.called!==this.totalCbs||!this.onloadCalled&&"function"==typeof n.onload||this.end(n)}),a.on("xhr-load-added",function(t,e){var n=""+f(t)+!!e;this.xhrGuids&&!this.xhrGuids[n]&&(this.xhrGuids[n]=!0,this.totalCbs+=1)}),a.on("xhr-load-removed",function(t,e){var n=""+f(t)+!!e;this.xhrGuids&&this.xhrGuids[n]&&(delete this.xhrGuids[n],this.totalCbs-=1)}),a.on("addEventListener-end",function(t,e){e instanceof u&&"load"===t[0]&&a.emit("xhr-load-added",[t[1],t[2]],e)}),a.on("removeEventListener-end",function(t,e){e instanceof u&&"load"===t[0]&&a.emit("xhr-load-removed",[t[1],t[2]],e)}),a.on("fn-start",function(t,e,n){e instanceof u&&("onload"===n&&(this.onload=!0),("load"===(t[0]&&t[0].type)||this.onload)&&(this.xhrCbStart=(new Date).getTime()))}),a.on("fn-end",function(t,e){this.xhrCbStart&&a.emit("xhr-cb-time",[(new Date).getTime()-this.xhrCbStart,this.onload,e],e)})}},{1:"XL7HBI",2:12,3:10,4:6,ee:"QJf3ax",handle:"D5DuLP",loader:"G9z0Bl"}],12:[function(t,e){e.exports=function(t){var e=document.createElement("a"),n=window.location,r={};e.href=t,r.port=e.port;var o=e.href.split("://");return!r.port&&o[1]&&(r.port=o[1].split("/")[0].split("@").pop().split(":")[1]),r.port&&"0"!==r.port||(r.port="https"===o[0]?"443":"80"),r.hostname=e.hostname||n.hostname,r.pathname=e.pathname,r.protocol=o[0],"/"!==r.pathname.charAt(0)&&(r.pathname="/"+r.pathname),r.sameOrigin=!e.hostname||e.hostname===document.domain&&e.port===n.port&&e.protocol===n.protocol,r}},{}],13:[function(t,e){function n(t){return function(){r(t,[(new Date).getTime()].concat(i(arguments)))}}var r=t("handle"),o=t(1),i=t(2);"undefined"==typeof window.newrelic&&(newrelic=window.NREUM);var a=["setPageViewName","addPageAction","setCustomAttribute","finished","addToTrace","inlineHit","noticeError"];o(a,function(t,e){window.NREUM[e]=n("api-"+e)}),e.exports=window.NREUM},{1:22,2:23,handle:"D5DuLP"}],gos:[function(t,e){e.exports=t("7eSDFh")},{}],"7eSDFh":[function(t,e){function n(t,e,n){if(r.call(t,e))return t[e];var o=n();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(t,e,{value:o,writable:!0,enumerable:!1}),o}catch(i){}return t[e]=o,o}var r=Object.prototype.hasOwnProperty;e.exports=n},{}],D5DuLP:[function(t,e){function n(t,e,n){return r.listeners(t).length?r.emit(t,e,n):void(r.q&&(r.q[t]||(r.q[t]=[]),r.q[t].push(e)))}var r=t("ee").create();e.exports=n,n.ee=r,r.q={}},{ee:"QJf3ax"}],handle:[function(t,e){e.exports=t("D5DuLP")},{}],XL7HBI:[function(t,e){function n(t){var e=typeof t;return!t||"object"!==e&&"function"!==e?-1:t===window?0:i(t,o,function(){return r++})}var r=1,o="nr@id",i=t("gos");e.exports=n},{gos:"7eSDFh"}],id:[function(t,e){e.exports=t("XL7HBI")},{}],G9z0Bl:[function(t,e){function n(){var t=p.info=NREUM.info,e=f.getElementsByTagName("script")[0];if(t&&t.licenseKey&&t.applicationID&&e){s(d,function(e,n){e in t||(t[e]=n)});var n="https"===u.split(":")[0]||t.sslForHttp;p.proto=n?"https://":"http://",a("mark",["onload",i()]);var r=f.createElement("script");r.src=p.proto+t.agent,e.parentNode.insertBefore(r,e)}}function r(){"complete"===f.readyState&&o()}function o(){a("mark",["domContent",i()])}function i(){return(new Date).getTime()}var a=t("handle"),s=t(1),c=window,f=c.document;t(2);var u=(""+location).split("?")[0],d={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",agent:"js-agent.newrelic.com/nr-768.min.js"},p=e.exports={offset:i(),origin:u,features:{}};f.addEventListener?(f.addEventListener("DOMContentLoaded",o,!1),c.addEventListener("load",n,!1)):(f.attachEvent("onreadystatechange",r),c.attachEvent("onload",n)),a("mark",["firstbyte",i()])},{1:22,2:13,handle:"D5DuLP"}],loader:[function(t,e){e.exports=t("G9z0Bl")},{}],22:[function(t,e){function n(t,e){var n=[],o="",i=0;for(o in t)r.call(t,o)&&(n[i]=e(o,t[o]),i+=1);return n}var r=Object.prototype.hasOwnProperty;e.exports=n},{}],23:[function(t,e){function n(t,e,n){e||(e=0),"undefined"==typeof n&&(n=t?t.length:0);for(var r=-1,o=n-e||0,i=Array(0>o?0:o);++r<o;)i[r]=t[e+r];return i}e.exports=n},{}],24:[function(t,e){function n(t){return!(t&&"function"==typeof t&&t.apply&&!t[i])}var r=t("ee"),o=t(1),i="nr@original",a=Object.prototype.hasOwnProperty;e.exports=function(t){function e(t,e,r,a){function nrWrapper(){var n,i,s,f;try{i=this,n=o(arguments),s=r&&r(n,i)||{}}catch(d){u([d,"",[n,i,a],s])}c(e+"start",[n,i,a],s);try{return f=t.apply(i,n)}catch(p){throw c(e+"err",[n,i,p],s),p}finally{c(e+"end",[n,i,f],s)}}return n(t)?t:(e||(e=""),nrWrapper[i]=t,f(t,nrWrapper),nrWrapper)}function s(t,r,o,i){o||(o="");var a,s,c,f="-"===o.charAt(0);for(c=0;c<r.length;c++)s=r[c],a=t[s],n(a)||(t[s]=e(a,f?s+o:o,i,s))}function c(e,n,r){try{t.emit(e,n,r)}catch(o){u([o,e,n,r])}}function f(t,e){if(Object.defineProperty&&Object.keys)try{var n=Object.keys(t);return n.forEach(function(n){Object.defineProperty(e,n,{get:function(){return t[n]},set:function(e){return t[n]=e,e}})}),e}catch(r){u([r])}for(var o in t)a.call(t,o)&&(e[o]=t[o]);return e}function u(e){try{t.emit("internal-error",e)}catch(n){}}return t||(t=r),e.inPlace=s,e.flag=i,e}},{1:23,ee:"QJf3ax"}]},{},["G9z0Bl",4,11,5]);
+            ;NREUM.info={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",licenseKey:"55db0cb698",applicationID:"6162753",sa:1,agent:"js-agent.newrelic.com/nr-768.min.js"}
+        </script>        
+        <!-- Begin comScore Tag - Part 1 -->
+        <script>
+            var _comscore = _comscore || [];
+            _comscore.push({ c1: "2", c2: "6036305" });
+            (function () {
+                var s = document.createElement("script"), el = document.getElementsByTagName("script")[0]; s.async = true;
+                s.src = (document.location.protocol == "https:" ? "https://sb" : "http://b") + ".scorecardresearch.com/beacon.js";
+                el.parentNode.insertBefore(s, el);
+            })();
+        </script>
+        <!-- End comScore Tag Part 1-->
+        <link rel="apple-touch-icon-precomposed" sizes="180x180" href="/apple-touch-icon-180x180-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/apple-touch-icon-152x152-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/apple-touch-icon-120x120-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/apple-touch-icon-114x114-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/apple-touch-icon-76x76-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/apple-touch-icon-72x72-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="60x60" href="/apple-touch-icon-60x60-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/apple-touch-icon-precomposed.png">
+        <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+        <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+        <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+        <meta name="msapplication-TileColor" content="#ffffff">
+        
+        <!-- Maxymiser script start -->
+        <script type="text/javascript"
+                src="//service.maxymiser.net/cdn/allrecipes/js/mmcore.js"></script>
+        <!-- Maxymiser script end -->
+
+    
+        <script src="//assets.adobedtm.com/1c2ad567a53f27e563c4dc2c278a904b84dc5fde/satelliteLib-a07d47e4668bf3c3fa98aff5b2fc6d3f1d0981a3.js"></script>
+        <script src='http://js01.media-allrecipes.com/assets/deployables/v-1.17.0.887/main-top.bundled.js' ></script>
+    </head>
+
+    <body ng-app="allrecipes" >
+        <a id="top"></a>
+        <!-- Begin comScore Tag - Part 2 -->
+        <noscript>
+            <img src="http://b.scorecardresearch.com/p?c1=2&c2=6036305&cv=2.0&cj=1" />
+        </noscript>
+        <!-- End comScore Tag - Part 2 -->
+        <div class="slider-container" global-ui-events>
+            
+                <div id="docking-leaderboard-container" class="ad-non-mobile-only leaderboard-wrapper" data-ad-container-autocollapse>
+                    <div class="docking-leaderboard-container ad-non-mobile-only">
+                        
+                        <div id="div-gpt-leaderboard-fixed-1" data-tier="1" class="docking-leaderboard"></div>
+                    </div>
+                </div>
+
+            <div class="site-content">
+                <header class="header new-nav">
+                    
+<section ng-controller="ar_controllers_top_nav" ng-init="init()">
+    <ul class="ar-nav-section">
+        <li class="ar-logo-tab">
+            <a href="/">
+                <div class="ar-logo" ng-click="setAnalyticsCookie('ARlogo')">
+<img alt="Allrecipes" height="36" src="http://images.media-allrecipes.com/ar-images/ARlogo.svg" width="96" />                </div>
+            </a>
+        </li>
+
+        <li class="browse-recipes">
+            <a href id="navmenu_recipes" class="recipes-txt {active:topBrowseRecipePanel_showing}" popup-trigger="topBrowseRecipePanel"><span>BROWSE</span><span class="icon--chevron-down"></span></a>
+        </li>
+        <li class="search-tab" ng-controller="ar_controllers_search">
+            <div class="nav-search">
+                <input id="searchText" type="text" placeholder="Find a recipe" ng-model="search.keywords" ng-keypress="isEnterKey($event) && performSearch()">
+                <button class="btn-basic--small search-button" ng-click="performSearch()">
+                    <span class="icon svg-icon--top-nav-bar--search-magnify svg-icon--top-nav-bar--search-magnify-dims"></span>
+                </button>
+                <div popup-trigger="topNavSearchMenu" id="ingredientSearch" class="ingredient-searchtxt" ar-event-focus="click" ar-event-focus-id="setFocus-keywordSearch">Ingredient Search</div>
+            </div>
+        </li>
+
+
+            <li class="social-notification" id="notificationBell" popup-trigger="notifications">
+                <div class="socialNotification" ng-controller="ar_controllers_notifications" ng-Click="setNotificationsViewed()" ng-cloak>
+                    <span class="svg-icon--top-nav-bar--nav-bell svg-icon--top-nav-bar--nav-bell-dims"></span>
+                    <span class="notification-count" ng-show="displayCount" ng-bind="notificationCount"></span>
+                </div>
+            </li>
+
+        <li class="nav-favorites" ng-click="setAnalyticsCookie('favorites')">
+            <a href="/cook/my/favorites/">
+                <span class="svg-icon--top-nav-bar--grey-heart svg-icon--top-nav-bar--grey-heart-dims"></span>
+            </a>
+        </li>
+
+            <li class="nav-profile anonymous-user">
+                <a href="/account/authenticationwelcome/">
+                    <div class="login-state">
+                        <div class="img-profile icon svg-icon--top-nav-bar--userhead svg-icon--top-nav-bar--userhead-dims" ng-click="setAnalyticsCookie('profile|profile')"></div>
+                        <span class="username icon-user--default" id="offCanvasDisplayName" ng-click="setAnalyticsCookie('create profile|sign up')">Create a profile</span>
+                        
+                    </div>
+                </a>
+            </li>
+        <li ng-class="{active:topNavSearchMenu_showing}" class="small-screen search-phone--landscape">
+            <a href popup-trigger="topNavSearchMenu" ar-event-focus="click" ar-event-focus-id="setFocus-keywordSearch">
+                <div class="nav-search">
+                    <span><img alt="search" height="23" src="http://images.media-allrecipes.com/ar-images/icons/NavSearchIcon.svg" width="23" /></span>
+                </div>
+            </a>
+        </li>
+
+        <li class="small-screen profile-phone--landscape" ng-class="{active:topNavProfileMenu_showing}" popup-trigger="topNavProfileMenu">
+            <a href>
+                <div class="login-state">
+                    <div class="img-profile icon svg-icon--top-nav-bar--userhead svg-icon--top-nav-bar--userhead-dims"></div>
+                </div>
+            </a>
+
+        </li>
+        <li class="hamburger-tab" ng-class="{active: topNavHamburgerMenu_showing}" popup-trigger="topNavHamburgerMenu">
+            <a href>
+                <div class="hamburger-nav">
+                    <span class="browse-recipes-iconbar"></span>
+                    <span class="browse-recipes-iconbar"></span>
+                    <span class="browse-recipes-iconbar"></span>
+                </div>
+            </a>
+        </li>
+    </ul>
+
+    <favorites-notification></favorites-notification>
+    <social-notification></social-notification>
+
+    <div class="nav-tab nav-tab__search ng-hide" popup-panel="topNavSearchMenu" ng-cloak>
+        
+
+
+
+<form>
+    <div data-ng-controller="ar_controllers_search">
+        <span class="icon--close" title="Close Ingredient Search" hideWhenClicked></span>
+        <div class="input-wrap--home">
+            <span class="search-spyglass"><img alt="Allrecipes" height="23" src="http://images.media-allrecipes.com/ar-images/icons/NavSearchIcon.svg" width="23" /></span>
+            <input id="searchText" type="text" placeholder="Keywords" ng-model="search.keywords" class="setFocus-keywordSearch">
+        </div>
+
+        
+
+        <div class="input-wrap--home ingredients" 
+            ar-assign-scrollable-classes="{ outermostWrapper: 'ingredients', clippingFrame: 'ingredient-clipping-frame', draggableElement: 'ingredient-scroller' }">    
+
+            <div class="ingredient-clipping-frame">
+                <ul class="ingredient-scroller"
+                    ng-mousedown="mouseDown($event)" ng-mouseup="mouseUp($event)"
+                    ar-touchstart="touchStart($event)" ar-touchend="touchEnd($event)" unselectable="on" onselectstart="return false;">
+
+                    <li ng-repeat="ingredient in search.ingredientsInclude">
+						<span>
+							<span ng-bind="::ingredient"></span>
+							<span class="icon--x ignore-ar-touchstart ignore-ar-touchend" ng-click="removeIngredientInclude(ingredient, $event)" unsubscribe-global-click-handler>&#x2715;</span>
+						</span>
+                    </li>
+
+                </ul>
+                </div>
+
+            <div class="ingredient-add-exclude">
+                
+                <input id="includeIngText" type="text" ng-attr-placeholder="{{includeIngPlaceholderText}}" name="txtIncludeIng"
+                       ng-model="includeIngredient" ng-focus="hideAds();" ng-blur="showAds()"
+                       ng-keydown="(isBackspaceKey($event) && removeLastIngredientInclude($event)) || (isTabKey($event) && addIngredientInclude($event))" class="setFocus-includeIng">
+            </div>
+            <a class="btn-basic--small include" ng-click="addIngredientInclude($event)" ar-event-focus="click" ar-event-focus-id="setFocus-includeIng" ng-class="{ 'grayed-out': includeIngHitMax }"><span>+</span></a>
+
+        </div> 
+
+        
+
+        <div class="input-wrap--home ingredients"
+            ar-assign-scrollable-classes="{ outermostWrapper: 'ingredients', clippingFrame: 'ingredient-clipping-frame', draggableElement: 'ingredient-scroller' }">    
+
+            <div class="ingredient-clipping-frame">
+                <ul class="ingredient-scroller"
+                    ng-mousedown="mouseDown($event)" ng-mouseup="mouseUp($event)"
+                    ar-touchstart="touchStart($event)" ar-touchend="touchEnd($event)" unselectable="on" onselectstart="return false;">
+
+                    <li ng-repeat="ingredient in search.ingredientsExclude">
+                        <span class="exclude-item">
+							<span ng-bind="::ingredient"></span>
+                            <span class="icon--x ignore-ar-touchstart ignore-ar-touchend" ng-click="removeIngredientExclude(ingredient, $event)" unsubscribe-global-click-handler>&#x2715;</span>
+                        </span>
+                    </li>
+
+                </ul>
+                </div>
+
+            <div class="ingredient-add-exclude">    
+                <input id="excludeIngText" type="text" ng-attr-placeholder="{{excludeIngPlaceholderText}}" name="txtExcludeIng"
+                       ng-model="excludeIngredient" ng-focus="hideAds();" ng-blur="showAds()"
+                       ng-keydown="(isBackspaceKey($event) && removeLastIngredientExclude($event)) || (isTabKey($event) && addIngredientExclude($event))" class="setFocus-excludeIng">
+            </div>
+            <a class="btn-basic--small exclude" ng-click="addIngredientExclude($event)" ar-event-focus="click" ar-event-focus-id="setFocus-excludeIng" ng-class="{ 'grayed-out': excludeIngHitMax }"><span>&#8212;</span></a>
+
+        </div> 
+
+        <div class="nav-tab__buttons">
+            <button class="btn-basic--small btn-search" ng-click="performSearch()" ng-cloak>Go</button>
+        </div>
+    </div>
+    <ar-notification></ar-notification>
+</form>
+
+
+    </div>
+    <div popup-panel="topBrowseRecipePanel" class="browse-recipe-tab social ng-hide" ng-cloak id="topBrowseRecipePanel">
+
+
+<section class="hero-link  nav-tab__options recipe-nav-tab__options">
+    <div class="grid underline_hero_link">
+            <a href="/recipes/76/appetizers-and-snacks/" ng-click="setAnalyticsCookie('browse|appetizer')" class="hero-link__item hero-link-browse-recipe__item light" title="Appetizer Recipes">
+                <img data-lazy-load data-src="http://images.media-allrecipes.com/ar/spacer.gif" data-original-src="http://images.media-allrecipes.com/images/60583.png" 
+                     alt="Appetizer Recipes" class="hero-link__item__image" data-container="topBrowseRecipePanel" />
+                <span class="hero-link__item__text">Appetizer</span>
+            </a>
+            <a href="/recipes/78/breakfast-and-brunch/" ng-click="setAnalyticsCookie('browse|breakfast &amp; brunch')" class="hero-link__item hero-link-browse-recipe__item light" title="Breakfast & Brunch Recipes">
+                <img data-lazy-load data-src="http://images.media-allrecipes.com/ar/spacer.gif" data-original-src="http://images.media-allrecipes.com/images/60586.png" 
+                     alt="Breakfast & Brunch Recipes" class="hero-link__item__image" data-container="topBrowseRecipePanel" />
+                <span class="hero-link__item__text">Breakfast &amp; Brunch</span>
+            </a>
+            <a href="/recipes/201/meat-and-poultry/chicken/" ng-click="setAnalyticsCookie('browse|chicken')" class="hero-link__item hero-link-browse-recipe__item light" title="Chicken Recipes">
+                <img data-lazy-load data-src="http://images.media-allrecipes.com/ar/spacer.gif" data-original-src="http://images.media-allrecipes.com/images/60628.png" 
+                     alt="Chicken Recipes" class="hero-link__item__image" data-container="topBrowseRecipePanel" />
+                <span class="hero-link__item__text">Chicken</span>
+            </a>
+            <a href="/recipes/79/desserts/" ng-click="setAnalyticsCookie('browse|dessert')" class="hero-link__item hero-link-browse-recipe__item light" title="Dessert Recipes">
+                <img data-lazy-load data-src="http://images.media-allrecipes.com/ar/spacer.gif" data-original-src="http://images.media-allrecipes.com/images/60587.png" 
+                     alt="Dessert Recipes" class="hero-link__item__image" data-container="topBrowseRecipePanel" />
+                <span class="hero-link__item__text">Dessert</span>
+            </a>
+            <a href="/recipes/84/healthy-recipes/" ng-click="setAnalyticsCookie('browse|healthy')" class="hero-link__item hero-link-browse-recipe__item light" title="Healthy Recipes">
+                <img data-lazy-load data-src="http://images.media-allrecipes.com/ar/spacer.gif" data-original-src="http://images.media-allrecipes.com/images/60592.png" 
+                     alt="Healthy Recipes" class="hero-link__item__image" data-container="topBrowseRecipePanel" />
+                <span class="hero-link__item__text">Healthy</span>
+            </a>
+            <a href="http://m.allrecipes.com/recipes/85/holidays-and-events/" ng-click="setAnalyticsCookie('browse|holidays and events')" class="hero-link__item hero-link-browse-recipe__item light" title="Holidays and Events Recipes">
+                <img data-lazy-load data-src="http://images.media-allrecipes.com/ar/spacer.gif" data-original-src="http://images.media-allrecipes.com/images/60593.png" 
+                     alt="Holidays and Events Recipes" class="hero-link__item__image" data-container="topBrowseRecipePanel" />
+                <span class="hero-link__item__text">Holidays and Events</span>
+            </a>
+            <a href="/recipes/80/main-dish/" ng-click="setAnalyticsCookie('browse|main dish')" class="hero-link__item hero-link-browse-recipe__item light" title="Main Dish Recipes">
+                <img data-lazy-load data-src="http://images.media-allrecipes.com/ar/spacer.gif" data-original-src="http://images.media-allrecipes.com/images/60596.png" 
+                     alt="Main Dish Recipes" class="hero-link__item__image" data-container="topBrowseRecipePanel" />
+                <span class="hero-link__item__text">Main Dish</span>
+            </a>
+            <a href="/recipes/1947/everyday-cooking/quick-and-easy/" ng-click="setAnalyticsCookie('browse|quick &amp; easy')" class="hero-link__item hero-link-browse-recipe__item light" title="Quick & Easy Recipes">
+                <img data-lazy-load data-src="http://images.media-allrecipes.com/ar/spacer.gif" data-original-src="http://images.media-allrecipes.com/images/60629.png" 
+                     alt="Quick & Easy Recipes" class="hero-link__item__image" data-container="topBrowseRecipePanel" />
+                <span class="hero-link__item__text">Quick &amp; Easy</span>
+            </a>
+            <a href="/recipes/96/salad/" ng-click="setAnalyticsCookie('browse|salad')" class="hero-link__item hero-link-browse-recipe__item light" title="Salad Recipes">
+                <img data-lazy-load data-src="http://images.media-allrecipes.com/ar/spacer.gif" data-original-src="http://images.media-allrecipes.com/images/60599.png" 
+                     alt="Salad Recipes" class="hero-link__item__image" data-container="topBrowseRecipePanel" />
+                <span class="hero-link__item__text">Salad</span>
+            </a>
+            <a href="/recipes/253/everyday-cooking/slow-cooker/" ng-click="setAnalyticsCookie('browse|slow cooker')" class="hero-link__item hero-link-browse-recipe__item light" title="Slow Cooker Recipes">
+                <img data-lazy-load data-src="http://images.media-allrecipes.com/ar/spacer.gif" data-original-src="http://images.media-allrecipes.com/images/60630.png" 
+                     alt="Slow Cooker Recipes" class="hero-link__item__image" data-container="topBrowseRecipePanel" />
+                <span class="hero-link__item__text">Slow Cooker</span>
+            </a>
+            <a href="/recipes/82/trusted-brands-recipes-and-tips/" ng-click="setAnalyticsCookie('browse|trusted brands')" class="hero-link__item hero-link-browse-recipe__item light" title="Trusted Brands Recipes">
+                <img data-lazy-load data-src="http://images.media-allrecipes.com/ar/spacer.gif" data-original-src="http://images.media-allrecipes.com/images/60603.png" 
+                     alt="Trusted Brands Recipes" class="hero-link__item__image" data-container="topBrowseRecipePanel" />
+                <span class="hero-link__item__text">Trusted Brands</span>
+            </a>
+            <a href="/recipes/87/everyday-cooking/vegetarian/" ng-click="setAnalyticsCookie('browse|vegetarian')" class="hero-link__item hero-link-browse-recipe__item light" title="Vegetarian Recipes">
+                <img data-lazy-load data-src="http://images.media-allrecipes.com/ar/spacer.gif" data-original-src="http://images.media-allrecipes.com/images/60631.png" 
+                     alt="Vegetarian Recipes" class="hero-link__item__image" data-container="topBrowseRecipePanel" />
+                <span class="hero-link__item__text">Vegetarian</span>
+            </a>
+    </div>
+    <a class="recipe-hero-link__item__text" href="/recipes?grouping=all" ng-click="setAnalyticsCookie('browse|all categories')">All Categories</a>
+</section>
+
+
+    </div>
+    <!-- user sign in area -->
+    <div class="nav-tab social profile-nav ng-hide" popup-panel="topNavProfileMenu" ng-cloak>
+        <ul class="nav-tab__options">
+
+            <li ng-click="setAnalyticsCookie('profile|feed')">
+                <a href=/account/signin/?loginReferrerUrl=/home id="navmenu_myFeed">
+                    <span class="iconContainer"><span class="icon svg-icon--top-nav-bar--home svg-icon--top-nav-bar--home-dims"></span></span>
+                    <span class="itemText">Feed</span>
+                </a>
+            </li>
+            <li ng-click="setAnalyticsCookie('profile|profile')">
+                <a href="/cook/my/" id="navmenu_myprofile">
+                    <span class="iconContainer"><span class="icon svg-icon--top-nav-bar--nav-profile svg-icon--top-nav-bar--nav-profile-dims"></span></span>
+                    <span class="itemText">Profile</span>
+                </a>
+            </li>
+            <li ng-click="setAnalyticsCookie('profile|favorites')">
+                <a href="/cook/my/favorites/" rel="nofollow" id="navmenu_recipebox">
+                    <span class="iconContainer">
+                        <span class="icon svg-icon--top-nav-bar--grey-heart svg-icon--top-nav-bar--grey-heart-dims"></span>
+                    </span>
+                    <span class="itemText">Favorites</span>
+                </a>
+            </li>
+            <li ng-click="setAnalyticsCookie('profile|friends')">
+                <a href="/cook/my/findfriends/" rel="nofollow" id="navmenu_findfriends">
+                    <span class="iconContainer">
+                        <span class="icon svg-icon--top-nav-bar--nav-friends svg-icon--top-nav-bar--nav-friends-dims"></span>
+                    </span>
+                    <span class="itemText">Friends</span>
+                </a>
+            </li>
+
+            <li ng-click="setAnalyticsCookie('profile|shopping list')">
+                <a href="/my/shopping-lists/" rel="nofollow" id="navmenu_shoppinglist">
+                    <span class="iconContainer">
+                        <span class="icon svg-icon--top-nav-bar--grey-shopping svg-icon--top-nav-bar--grey-shopping-dims"></span>
+                    </span>
+                    <span class="itemText">Shopping List</span>
+                </a>
+            </li>
+            <li ng-click="setAnalyticsCookie('profile|settings')">
+                <a href="/cook/my/account-settings/" rel="nofollow" id="navmenu_settings">
+                    <span class="iconContainer">
+                        <span class="icon svg-icon--top-nav-bar--nav-settings svg-icon--top-nav-bar--nav-settings-dims"></span>
+                    </span>
+                    <span class="itemText">Settings</span>
+                </a>
+            </li>
+
+        </ul>
+
+            <div class="signin">
+                <button onclick=" location.href='/account/signin?actionsource=' +(typeof dataLayer !=='undefined' ? dataLayer.page.category.contentType : '' ) " class="btn-basic--large btn-gold" id="navmenu_signin_signup">Sign In <em>or</em> Sign Up</button>
+            </div>
+
+    </div>
+
+    <!-- hub links, etc. -->
+    <div class="nav-tab last ng-hide" popup-panel="topNavHamburgerMenu" ng-cloak>
+
+        <ul class="nav-tab__options">
+            <li class="underline_link">
+                <a href="/recipes/" id="navmenu_recipes">
+                    <span class="icon svg-icon--top-nav-bar--nav-browse svg-icon--top-nav-bar--nav-browse-dims"></span>
+                    <span>Browse Recipes</span>
+                </a>
+            </li>
+
+
+            <li ng-click="setAnalyticsData('allrecipes magazine')">
+                <a href="http://armagazine.com/mobile-site" id="navmenu_magazine" target="_blank">
+                    <span class="icon svg-icon--top-nav-bar--nav-magazine svg-icon--top-nav-bar--nav-magazine-dims"></span>
+                    <span>Allrecipes Magazine</span>
+                </a>
+            </li>
+
+            <li ng-click="setAnalyticsData('shop')">
+                <a href="http://shop.allrecipes.com/shop" id="navmenu_shop" target="_blank">
+                    <span class="icon svg-icon--top-nav-bar--nav-shop svg-icon--top-nav-bar--nav-shop-dims"></span>
+                    <span>Shop</span>
+                </a>
+            </li>
+            <li class="underline_link" ng-click="setAnalyticsData('cooking school')">
+                <a href="http://cookingschool.allrecipes.com/" id="navmenu_cooking_school" target="_blank">
+                    <span class="icon svg-icon--top-nav-bar--nav-cookingschool svg-icon--top-nav-bar--nav-cookingschool-dims"></span>
+                    <span>Cooking School</span>
+                </a>
+            </li>
+            <li ng-click="setAnalyticsData('articles and tips')">
+                <a href="http://dish.allrecipes.com/" target="_self" id="navmenu_articles">
+                    <span class="icon svg-icon--top-nav-bar--nav-article svg-icon--top-nav-bar--nav-article-dims"></span>
+                    <span>Articles & Tips</span>
+                </a>
+            </li>
+            <li ng-click="setAnalyticsData('profile|blogs')">
+                <a href="http://dish.allrecipes.com/blogs/" rel="nofollow" id="navmenu_blogs" target="_self">
+                    <span class="iconContainer">
+                        <span class="icon svg-icon--top-nav-bar--nav-blog svg-icon--top-nav-bar--nav-blog-dims"></span>
+                    </span>
+                    <span class="itemText">Blogs</span>
+                </a>
+            </li>
+            <li ng-click="setAnalyticsCookie('newsletters')">
+                <a href="/cook/my/account-settings/#NewslettersSubscription" id="navmenu_social_gallery">
+                    <span class="icon svg-icon--top-nav-bar--nav-newsletters svg-icon--top-nav-bar--nav-newsletters-dims"></span>
+                    <span>Newsletters</span>
+                </a>
+            </li>
+            <li ng-click="setAnalyticsData('ask the community')">
+                <a href="http://dish.allrecipes.com/ask-the-community/" target="_self" id="navmenu_dish">
+                    <span class="icon svg-icon--top-nav-bar--nav-community svg-icon--top-nav-bar--nav-community-dims"></span>
+                    <span>Ask the Community</span>
+                </a>
+            </li>
+            <li class="underline_link" ng-click="setAnalyticsData('help')">
+                <a href="http://dish.allrecipes.com/customer-service/" id="navmenu_help" target="_self">
+                    <span class="icon svg-icon--top-nav-bar--nav-help svg-icon--top-nav-bar--nav-help-dims"></span>
+                    <span>Help</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://dish.allrecipes.com/allrecipes-jobs-2/" target="_self" ng-click="setAnalyticsData('jobs')">Jobs</a>
+                <a href="http://press.allrecipes.com/" ng-click="setAnalyticsData('newsroom')">Newsroom</a>
+            </li>
+
+        </ul>
+    </div>
+</section>
+
+                </header>
+                
+
+                <div class="container-content body-content">
+                    
+<script type="text/javascript">
+    window.AR.Util.CountryCode = "False"  === "True" ? "Canada" : "US";
+</script>
+
+
+
+<div id="ad-is-mobile"></div>
+<div id="ad-is-tablet"></div>
+<script>
+    (function($) {
+        
+        window.adConfiguration = {
+            "settings": {
+                "responsiveGridSlots": 0 }
+        };
+
+        
+        var mobileAdElem = document.getElementById('ad-is-mobile');
+        var isMobileAds = !(mobileAdElem.offsetWidth === 0 && mobileAdElem.offsetHeight === 0);
+
+
+        var isTablet = $ && $('#ad-is-tablet').css('display') === 'none';
+
+         
+        window.adService = {
+            allTiersAllTheTime: true,
+            isDesktop: window.innerWidth > 1024,
+            mobileAds: isMobileAds,
+            tabletAds: isTablet,
+            unitValues: {
+                channel: ""
+            },
+            pageTargetingValues: {
+                type: "recipe",
+                "status": "unrecognized",
+                "oid": "",
+                "fit": "1",
+                "r": "150934",
+                "k": [1,24,106,144,174,245,261,653]
+            },
+            suppressInterstitial: true
+        };
+
+         
+        var krux = new AR.Ads.Krux();
+        krux.InjectControlTag("H1gAR3V7");
+    })($ || window.jQuery);
+</script>
+
+<div class="recipe-container-outer">
+    <section class="ar_recipe_index full-page" itemscope itemtype="http://schema.org/Recipe">
+        <link itemprop="url" href="http://allrecipes.com/recipe/150934/tanqueray-tom-collins/" />
+        <meta itemprop="mainEntityOfPage" content="True" />
+        
+
+<ul class="breadcrumbs breadcrumbs" data-scroll-left>
+
+    <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+        <a data-internal-referrer-link="recipe breadcrumb" data-click-id="recipe breadcrumb 1" href="/" target="_self" itemprop="url">
+            <span class="toggle-similar__title" itemprop="title">
+                Home
+            </span>
+            <span class="icon--chevron-right"></span>
+        </a>
+    </li>
+
+        <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb" data-list-item>
+            <a data-internal-referrer-link="recipe breadcrumb" data-click-id="recipe breadcrumb 2" href="/recipes/" target="_self" itemprop="url">
+                <span class="toggle-similar__title" itemprop="title">
+                    Recipes
+                </span>
+            </a>
+        </li>
+
+</ul>
+
+        
+
+
+<recipe-signup data-id="150934" data-type="'Recipe'" data-title="&quot;Tanqueray Tom Collins&quot;" data-imageurl="'http://images.media-allrecipes.com/userphotos/250x250/985443.jpg'" ></recipe-signup>
+
+        <div class="summary-background">
+            <div class="summaryGroup downsized clearfix">
+
+
+<section class="hero-photo hero-photo--250">
+
+    <ar-save-item class="favorite" data-id="150934" data-type="'Recipe'" data-name="&quot;Tanqueray Tom Collins&quot;" data-imageurl="'http://images.media-allrecipes.com/userphotos/250x250/985443.jpg'"></ar-save-item>
+
+
+
+
+
+        <span ng-hide="showplayer" class="hero-photo__image" >
+            <a href="/recipe/150934/tanqueray-tom-collins/photos/985443/">
+                <img class="rec-photo" src="http://images.media-allrecipes.com/userphotos/250x250/985443.jpg" alt="Tanqueray Tom Collins" title="Tanqueray Tom Collins" itemprop="image">
+            </a>
+            <a href="/recipe/150934/tanqueray-tom-collins/photos/985443/" title="See Recipe Pictures" class="icon-photoPage">
+                <span class="icon--circle" title="View Pictures">
+                    <span class="icon icon--picture"> </span>
+                    <span class="picture-count"><format-large-number number="1"></format-large-number></span>
+                </span>
+            </a>
+        </span>
+        <ar-notification></ar-notification>
+    <div class="photo-with-video">
+    </div>
+
+</section>
+
+
+<section class="recipe-summary downsized clearfix">
+    <meta property="og:rating" content="0" />
+    <meta property="og:rating_scale" content="5" />
+    
+    <h1 class="recipe-summary__h1" itemprop="name">Tanqueray Tom Collins</h1>
+    <!--rating stars-->
+    <div class="recipe-summary__stars">
+        <div class="rating-stars" data-scroll-to-anchor="reviews" data-ratingstars= 0 >
+        <img height="20" width="20" src="http://images.media-allrecipes.com/ar-images/icons/rating-stars/empty-star.svg"  />
+        <img height="20" width="20" src="http://images.media-allrecipes.com/ar-images/icons/rating-stars/empty-star.svg"  />
+        <img height="20" width="20" src="http://images.media-allrecipes.com/ar-images/icons/rating-stars/empty-star.svg"  />
+        <img height="20" width="20" src="http://images.media-allrecipes.com/ar-images/icons/rating-stars/empty-star.svg"  />
+        <img height="20" width="20" src="http://images.media-allrecipes.com/ar-images/icons/rating-stars/empty-star.svg"  />
+</div>
+        <span itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating" class="aggregate-rating">
+            <meta itemprop="ratingValue" content="0.00">
+            <meta itemprop="reviewCount" content="0">
+        </span>
+    </div>
+    <!-- total made it count & read review link -->
+    <div class="total-made-it" ng-cloak data-ng-show="show" data-ng-controller="ar_controllers_recipe_summary" data-ng-init="init(0)">             
+      
+            <span ng-controller="ar_controllers_recipe_reviews" ng-init="init(150934, 2, 9, 'Recipe', 5, 'MostHelpful')">
+
+                <a class="read--reviews" ng-click="$event.preventDefault();reviewModalDialog(0, sortBy)" target="_self">
+                    <span class="made-it-count" ng-bind="totalRecipeMadeCount |largeNumberDisplay"></span><span>&nbsp;made it</span>            <span>&nbsp;|&nbsp;</span>
+                    <span class="review-count" itemprop="reviewCount">0 reviews</span>
+                </a>
+            </span>
+    </div>
+
+    <div class="submitter">
+        <p>
+            <span class="submitter__byline">Recipe by: </span><span class="submitter__name" itemprop="author">thebar.com</span>
+        </p>
+        <div class="submitter__description" itemprop="description">
+&#34;The rich juniper flavor and full botanicals of Tanqueray&#174; London dry gin makes it the obvious choice for a classic gin cocktail.&#34;        </div>
+    </div>
+
+
+
+</section>
+
+
+            </div>
+        </div>
+        
+<section class="recipe-navbar" ng-controller="ar_controllers_recipe_toolbar" ng-init="init(150934, 'Recipe')">
+    <a href="" ng-click="saveOnClick(150934, 'Recipe',&quot;Tanqueray Tom Collins&quot;,'http://images.media-allrecipes.com/userphotos/250x250/985443.jpg')">
+        <div ng-switch on="saved" ng-cloak>
+            <div ng-switch-when="true">
+                <span class="svg-icon--recipe-navbar--heart_on svg-icon--recipe-navb

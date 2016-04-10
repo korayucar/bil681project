@@ -3,13 +3,14 @@ import edu.stanford.nlp.simple.Sentence;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Level;
+import java.util.*;
+import java.util.concurrent.ConcurrentSkipListMap;
+import java.util.concurrent.ConcurrentSkipListSet;
 import java.util.logging.Logger;
 
 /*
@@ -20,16 +21,88 @@ import java.util.logging.Logger;
  */
 public class Bil681Project {
 
+     private static final String [] LUCENE_STOP_WORDS = new String[]{
+             "a", "an", "and", "are", "as", "at", "be", "but", "by",
+            "for", "if", "in", "into", "is", "it",
+            "no", "not", "of", "on", "or", "such",
+            "that", "the", "their", "then", "there", "these",
+            "they", "this", "to", "was", "will", "with"};
+
+
+    private static final String OUTPUT_FOLDER = "out"; // relative to project root
+
+    private static final String INVERTED_INDEX_FILE_NAME = "inverted_index.json"; // relative to project root
+
     private static final Logger LOGGER = Logger.getLogger(Bil681Project.class.getName());
 
-    public static final String RAW_DATA_DIRECTORY = "test-data"; // relative to project root
+    private static final int RARITY_CUT_OFF_LEVEL = 5;
+
+    public static final String RAW_DATA_DIRECTORY = "data"; // relative to project root
+
+    Map<String , SortedSet<Posting>> invertedIndex;
+
+    List<edu.stanford.nlp.simple.Document> nlpDocuments;
+
 
     public static void main(String... args) throws IOException {
         Bil681Project project = new Bil681Project();
         List<Document> documents = project.memoizeDocumentsUnderPath(Paths.get(RAW_DATA_DIRECTORY));
         List<RecipeData> recipeDatas = project.parseDocuments(documents);
+        project.generateNlpDocuments(recipeDatas);
+        project.generateInvertedIndex();
+        project.filterRareWords(RARITY_CUT_OFF_LEVEL);
+        new File(OUTPUT_FOLDER).mkdirs();
+        Files.write(Paths.get(OUTPUT_FOLDER , INVERTED_INDEX_FILE_NAME) , new GsonBuilder().setPrettyPrinting().create().toJson(project.invertedIndex).getBytes()  );
+
+    }
 
 
+    /**
+     * Removes rare words from inverted index
+     * @param rarityCutOffLevel number of occurences required for dictionary term to survive
+     */
+    private void filterRareWords(int rarityCutOffLevel) {
+        for(Map.Entry<String , SortedSet<Posting>> entry : invertedIndex.entrySet()){
+            if(entry.getValue().size() < rarityCutOffLevel )
+                invertedIndex.remove(entry.getKey());
+        }
+    }
+
+    private void generateInvertedIndex() {
+        List<String> stopWordList = Arrays.asList(LUCENE_STOP_WORDS);
+        invertedIndex = new ConcurrentSkipListMap<>();
+        for( int i = 0 ; i < nlpDocuments.size() ; i++)
+        {
+            for(Sentence sentence : nlpDocuments.get(i).sentences()){
+                for (String s : sentence.lemmas())
+                {
+                    String lowercase = s.toLowerCase(Locale.ENGLISH);
+                    if(lowercase.matches("[A-Za-z]+") && !stopWordList.contains(lowercase))
+                    {
+                        SortedSet<Posting> postings = invertedIndex.get(lowercase);
+                        if(!invertedIndex.containsKey(lowercase)){
+                            postings = new ConcurrentSkipListSet<>();
+                            invertedIndex.put(lowercase , postings);
+                        }
+                        postings.add(new Posting(i));
+                    }
+                }
+            }
+        }
+
+    }
+
+    /**
+     * takes generic recipe data and returns nlp document objects
+     * @return
+     */
+    public void generateNlpDocuments(List<RecipeData> recipeDatas ) {
+        nlpDocuments = new ArrayList<>();
+        for(int i = 0 ; i < recipeDatas.size() ; i++){
+            edu.stanford.nlp.simple.Document doc = new edu.stanford.nlp.simple.Document(recipeDatas.get(i).toPlainString());
+            doc.setDocid(Integer.toString(i));
+            nlpDocuments.add(doc);
+        }
     }
 
     /**
@@ -53,7 +126,7 @@ public class Bil681Project {
 
     /**
      * Parses to extract specific data into custom java pojo from recipe document. Expects very specific data format.
-     *
+     * TODO find out how category field can be parsed
      * @param documents list of allrecipe.com recipe html jsoup document
      * @return list of RecipeData objects
      */
@@ -69,16 +142,18 @@ public class Bil681Project {
             recipeData.duration = d.getElementsByClass("ready-in-time").html();
             recipeData.nutrition = d.getElementsByClass("calorie-count").get(0).child(0).text();
             recipeData.directions = d.getElementsByClass("recipe-directions__list--item").html().replace("\n", ". ");
-            LOGGER.log(Level.INFO, recipeData.toString());
+//            LOGGER.log(Level.INFO, recipeData.toString());
             recipeDatas.add(recipeData);
         }
         return recipeDatas;
     }
 
+
+    /**
+     * just a project specific pojo
+     */
     public class RecipeData {
         public String title, description, submitter, ingredients, servings, duration, directions, nutrition, category;
-
-        edu.stanford.nlp.simple.Document document;
 
         @Override
         public String toString() {
@@ -89,23 +164,6 @@ public class Bil681Project {
         public String toPlainString() {
             return title + " " + description + " " + submitter + " " + ingredients + " " + servings + " " + duration + " " + directions + " " + nutrition;
         }
-
-        public edu.stanford.nlp.simple.Document getDocument() {
-            if (document == null) document = new edu.stanford.nlp.simple.Document(this.toPlainString());
-            return document;
-        }
-
-        public List<Sentence> getSentences() {
-            return document.sentences();
-        }
-
-        public List<String> getLematizedWords() {
-            for (Sentence s : getDocument().sentences()) {
-
-            }
-
-        }
-
     }
 
 }

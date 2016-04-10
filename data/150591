@@ -1,0 +1,31 @@
+
+<!DOCTYPE html>
+<html>
+<!-- ARLOG SERVER: USSEAMOBILE27 LOCAL_IP: 10.10.80.56 MERCH_KEY: MerchData_4_1_1_150591_***_68 -->
+
+    <head>
+        <title>Eggplant Appetizer Recipe - Allrecipes.com</title>
+            <meta property="og:title" content="Eggplant Appetizer Recipe" />
+    
+        <meta property="og:site_name" content="Allrecipes" />
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            <meta id="metaDescription" name="description" content="This traditional Russian eggplant appetizer is delicious! It&#39;s great with crackers or bread. Boil leftovers and seal in jars so you can enjoy it the whole winter!">
+            <meta property="og:description" content="This traditional Russian eggplant appetizer is delicious! It&#39;s great with crackers or bread. Boil leftovers and seal in jars so you can enjoy it the whole winter!" />
+                            <meta name="robots" content="noodp,noydir" />
+
+        
+
+            <link id="canonicalUrl" rel="canonical" href="http://allrecipes.com/recipe/150591/eggplant-appetizer/" />
+                <meta property="og:url" content="http://allrecipes.com/recipe/150591/eggplant-appetizer/" />
+        
+        <link href='http://css01.media-allrecipes.com/assets/deployables/v-1.17.0.887/main-css.bundled.Css' rel='stylesheet'/>
+        
+
+    
+        
+                                    <meta property="og:type" content="article" />
+                    <meta property="og:image" content="http://images.media-allrecipes.com/userphotos/720x405/2195404.jpg"/>
+        <meta property="fb:app_id" content="66102450266" />
+        <script type="text/javascript">
+            window.NREUM||(NREUM={}),__nr_require=function(t,e,n){function r(n){if(!e[n]){var o=e[n]={exports:{}};t[n][0].call(o.exports,function(e){var o=t[n][1][e];return r(o||e)},o,o.exports)}return e[n].exports}if("function"==typeof __nr_require)return __nr_require;for(var o=0;o<n.length;o++)r(n[o]);return r}({QJf3ax:[function(t,e){function n(t){function e(e,n,a){t&&t(e,n,a),a||(a={});for(var c=s(e),f=c.length,u=i(a,o,r),d=0;f>d;d++)c[d].apply(u,n);return u}function a(t,e){f[t]=s(t).concat(e)}function s(t){return f[t]||[]}function c(){return n(e)}var f={};return{on:a,emit:e,create:c,listeners:s,_events:f}}function r(){return{}}var o="nr@context",i=t("gos");e.exports=n()},{gos:"7eSDFh"}],ee:[function(t,e){e.exports=t("QJf3ax")},{}],3:[function(t){function e(t){try{i.console&&console.log(t)}catch(e){}}var n,r=t("ee"),o=t(1),i={};try{n=localStorage.getItem("__nr_flags").split(","),console&&"function"==typeof console.log&&(i.console=!0,-1!==n.indexOf("dev")&&(i.dev=!0),-1!==n.indexOf("nr_dev")&&(i.nrDev=!0))}catch(a){}i.nrDev&&r.on("internal-error",function(t){e(t.stack)}),i.dev&&r.on("fn-err",function(t,n,r){e(r.stack)}),i.dev&&(e("NR AGENT IN DEVELOPMENT MODE"),e("flags: "+o(i,function(t){return t}).join(", ")))},{1:22,ee:"QJf3ax"}],4:[function(t){function e(t,e,n,i,s){try{c?c-=1:r("err",[s||new UncaughtException(t,e,n)])}catch(f){try{r("ierr",[f,(new Date).getTime(),!0])}catch(u){}}return"function"==typeof a?a.apply

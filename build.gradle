@@ -27,6 +27,8 @@ dependencies {
     compile 'edu.stanford.nlp:stanford-corenlp:3.6.0:models'
     compile 'com.google.code.gson:gson:2.6.2'
     compile 'com.google.protobuf:protobuf-java:3.0.0-beta-2'
+    compile 'com.google.guava:guava:19.0'
+
 
     // Declare the dependency for your favourite test framework you want to use in your tests.
     // TestNG is also supported by the Gradle Test task. Just change the

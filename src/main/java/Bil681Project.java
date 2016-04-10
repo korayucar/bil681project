@@ -1,3 +1,4 @@
+import com.google.common.base.Stopwatch;
 import com.google.gson.GsonBuilder;
 import edu.stanford.nlp.simple.Sentence;
 import org.jsoup.Jsoup;
@@ -11,6 +12,7 @@ import java.nio.file.Paths;
 import java.util.*;
 import java.util.concurrent.ConcurrentSkipListMap;
 import java.util.concurrent.ConcurrentSkipListSet;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /*
@@ -46,10 +48,16 @@ public class Bil681Project {
 
     public static void main(String... args) throws IOException {
         Bil681Project project = new Bil681Project();
+        Stopwatch timer = Stopwatch.createStarted();
         List<Document> documents = project.memoizeDocumentsUnderPath(Paths.get(RAW_DATA_DIRECTORY));
+        LOGGER.log(Level.INFO , "Taking documents to memory took : " + timer.stop().toString());
+        timer = Stopwatch.createStarted();
         List<RecipeData> recipeDatas = project.parseDocuments(documents);
+        LOGGER.log(Level.INFO , "Parsing documents took : " + timer.stop().toString());
         project.generateNlpDocuments(recipeDatas);
+        timer = Stopwatch.createStarted();
         project.generateInvertedIndex();
+        LOGGER.log(Level.INFO , "Inverted index generation took : " + timer.stop().toString());
         project.filterRareWords(RARITY_CUT_OFF_LEVEL);
         new File(OUTPUT_FOLDER).mkdirs();
         Files.write(Paths.get(OUTPUT_FOLDER , INVERTED_INDEX_FILE_NAME) , new GsonBuilder().setPrettyPrinting().create().toJson(project.invertedIndex).getBytes()  );
@@ -117,6 +125,7 @@ public class Bil681Project {
         Files.list(directory).forEach((k) -> {
             try {
                 documents.add(Jsoup.parse(k.toFile(), "UTF-8"));
+//                LOGGER.log(Level.INFO , "memoized file "+ k.toString());
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -133,17 +142,22 @@ public class Bil681Project {
     public List<RecipeData> parseDocuments(List<Document> documents) {
         List<RecipeData> recipeDatas = new ArrayList<>();
         for (Document d : documents) {
-            RecipeData recipeData = new RecipeData();
-            recipeData.title = d.getElementsByClass("recipe-summary__h1").html();
-            recipeData.description = d.getElementsByClass("submitter__description").html();
-            recipeData.submitter = d.getElementsByClass("submitter__name").html();
-            recipeData.ingredients = d.getElementsByAttributeValue("itemprop", "ingredients").html().replace("\n", ". ");
-            recipeData.servings = d.getElementById("metaRecipeServings").attr("content");
-            recipeData.duration = d.getElementsByClass("ready-in-time").html();
-            recipeData.nutrition = d.getElementsByClass("calorie-count").get(0).child(0).text();
-            recipeData.directions = d.getElementsByClass("recipe-directions__list--item").html().replace("\n", ". ");
+            try {
+                RecipeData recipeData = new RecipeData();
+                recipeData.title = d.getElementsByClass("recipe-summary__h1").html();
+                recipeData.description = d.getElementsByClass("submitter__description").html();
+                recipeData.submitter = d.getElementsByClass("submitter__name").html();
+                recipeData.ingredients = d.getElementsByAttributeValue("itemprop", "ingredients").html().replace("\n", ". ");
+                recipeData.servings = d.getElementById("metaRecipeServings").attr("content");
+                recipeData.duration = d.getElementsByClass("ready-in-time").html();
+                recipeData.nutrition = d.getElementsByClass("calorie-count").get(0).child(0).text();
+                recipeData.directions = d.getElementsByClass("recipe-directions__list--item").html().replace("\n", ". ");
 //            LOGGER.log(Level.INFO, recipeData.toString());
-            recipeDatas.add(recipeData);
+                recipeDatas.add(recipeData);
+            }catch (NullPointerException | IndexOutOfBoundsException e){
+//                LOGGER.log(Level.SEVERE , "Failed to parse a file, omitting from document set.");
+
+            }
         }
         return recipeDatas;
     }

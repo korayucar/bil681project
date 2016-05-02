@@ -33,7 +33,7 @@ public class Bil681Project {
 
     private static final String OUTPUT_FOLDER = "out"; // relative to project root
 
-    private static final String INVERTED_INDEX_FILE_NAME = "inverted_index.json"; // relative to project root
+    private static final String INVERTED_INDEX_FILE_NAME = "inverted_index.json"; // relative to output folder
 
     private static final Logger LOGGER = Logger.getLogger(Bil681Project.class.getName());
 

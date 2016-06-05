@@ -16,20 +16,34 @@ repositories {
     // Use 'jcenter' for resolving your dependencies.
     // You can declare any Maven/Ivy/file repository here.
     jcenter()
+    maven {
+        url "http://mvnrepository.com"
+    }
 }
 
 // In this section you declare the dependencies for your production and test code
 dependencies {
     // The production code uses the SLF4J logging API at compile time
     compile 'org.slf4j:slf4j-api:1.7.12'
+    //java based html parser
     compile 'org.jsoup:jsoup:1.8.3'
+    //core nlp
     compile 'edu.stanford.nlp:stanford-corenlp:3.6.0'
+    //core nlp train data for some language including turkish
     compile 'edu.stanford.nlp:stanford-corenlp:3.6.0:models'
+    //json library
     compile 'com.google.code.gson:gson:2.6.2'
     compile 'com.google.protobuf:protobuf-java:3.0.0-beta-2'
+    //dear old guava
     compile 'com.google.guava:guava:19.0'
-
-
+    //apache lucene for indexing
+    compile group: 'org.apache.lucene', name: 'lucene-core', version: '6.0.1'
+    //lucene analyzer common
+    compile group: 'org.apache.lucene', name: 'lucene-analyzers-common', version: '6.0.1'
+    //lucene query parsing
+    compile group: 'org.apache.lucene', name: 'lucene-queryparser', version: '6.0.1'
+    //hope classification library is in this
+    compile group: 'org.apache.lucene', name: 'lucene-classification', version: '6.0.1'
     // Declare the dependency for your favourite test framework you want to use in your tests.
     // TestNG is also supported by the Gradle Test task. Just change the
     // testCompile dependency to testCompile 'org.testng:testng:6.8.1' and add
@@ -38,8 +52,8 @@ dependencies {
 }
 
 
-idea{
-    module{
+idea {
+    module {
         //if you love browsing Javadoc
         downloadJavadoc = true
 

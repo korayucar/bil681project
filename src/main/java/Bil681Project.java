@@ -1,10 +1,32 @@
 import com.google.common.base.Stopwatch;
 import com.google.gson.GsonBuilder;
 import edu.stanford.nlp.simple.Sentence;
+import org.apache.lucene.analysis.Analyzer;
+import org.apache.lucene.analysis.TokenStream;
+import org.apache.lucene.analysis.core.StopFilter;
+import org.apache.lucene.analysis.en.EnglishAnalyzer;
+import org.apache.lucene.analysis.standard.StandardTokenizer;
+import org.apache.lucene.analysis.tokenattributes.CharTermAttribute;
+import org.apache.lucene.analysis.util.CharArraySet;
+import org.apache.lucene.document.Field;
+import org.apache.lucene.document.StringField;
+import org.apache.lucene.document.TextField;
+import org.apache.lucene.index.DirectoryReader;
+import org.apache.lucene.index.IndexWriter;
+import org.apache.lucene.index.IndexWriterConfig;
+import org.apache.lucene.queryparser.flexible.core.QueryNodeException;
+import org.apache.lucene.queryparser.flexible.standard.StandardQueryParser;
+import org.apache.lucene.search.IndexSearcher;
+import org.apache.lucene.search.Query;
+import org.apache.lucene.search.ScoreDoc;
+import org.apache.lucene.search.TopDocs;
+import org.apache.lucene.store.Directory;
+import org.apache.lucene.store.FSDirectory;
+import org.apache.lucene.store.SimpleFSDirectory;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
-import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -23,15 +45,14 @@ import java.util.logging.Logger;
  */
 public class Bil681Project {
 
-     private static final String [] LUCENE_STOP_WORDS = new String[]{
-             "a", "an", "and", "are", "as", "at", "be", "but", "by",
+    private static final List<String> LUCENE_STOP_WORDS =Arrays.asList( new String[]{
+            "a", "an", "and", "are", "as", "at", "be", "but", "by",
             "for", "if", "in", "into", "is", "it",
             "no", "not", "of", "on", "or", "such",
             "that", "the", "their", "then", "there", "these",
-            "they", "this", "to", "was", "will", "with"};
+            "they", "this", "to", "was", "will", "with"});
 
-
-    private static final String OUTPUT_FOLDER = "out"; // relative to project root
+    private static final String OUTPUT_FOLDER = "outvector/index"; // relative to project root
 
     private static final String INVERTED_INDEX_FILE_NAME = "inverted_index.json"; // relative to output folder
 
@@ -41,56 +62,138 @@ public class Bil681Project {
 
     public static final String RAW_DATA_DIRECTORY = "data"; // relative to project root
 
-    Map<String , SortedSet<Posting>> invertedIndex;
+    Map<String, SortedSet<Posting>> invertedIndex;
 
     List<edu.stanford.nlp.simple.Document> nlpDocuments;
+    Analyzer mAnalyzer;
 
+    static Bil681Project project = new Bil681Project();
 
-    public static void main(String... args) throws IOException {
-        Bil681Project project = new Bil681Project();
-        Stopwatch timer = Stopwatch.createStarted();
-        List<Document> documents = project.memoizeDocumentsUnderPath(Paths.get(RAW_DATA_DIRECTORY));
-        LOGGER.log(Level.INFO , "Taking documents to memory took : " + timer.stop().toString());
-        timer = Stopwatch.createStarted();
-        List<RecipeData> recipeDatas = project.parseDocuments(documents);
-        LOGGER.log(Level.INFO , "Parsing documents took : " + timer.stop().toString());
-        project.generateNlpDocuments(recipeDatas);
-        timer = Stopwatch.createStarted();
-        project.generateInvertedIndex();
-        LOGGER.log(Level.INFO , "Inverted index generation took : " + timer.stop().toString());
-        project.filterRareWords(RARITY_CUT_OFF_LEVEL);
-        new File(OUTPUT_FOLDER).mkdirs();
-        Files.write(Paths.get(OUTPUT_FOLDER , INVERTED_INDEX_FILE_NAME) , new GsonBuilder().setPrettyPrinting().create().toJson(project.invertedIndex).getBytes()  );
+    public static void main(String... args) throws IOException, QueryNodeException {
+        if(args.length > 0) {
+            project.mAnalyzer = new EnglishAnalyzer();
+            Stopwatch timer = Stopwatch.createStarted();
+            List<Document> documents = project.memoizeDocumentsUnderPath(Paths.get(RAW_DATA_DIRECTORY));
+            LOGGER.log(Level.INFO, "Taking documents to memory took : " + timer.stop().toString());
+            timer = Stopwatch.createStarted();
+            List<RecipeData> recipeDatas = project.parseDocuments(documents);
+            LOGGER.log(Level.INFO, "Parsing documents took : " + timer.stop().toString());
+            
+//            project.generateInvertedIndex();
+//            LOGGER.log(Level.INFO, "Inverted index generation took : " + timer.stop().toString());
+            
+//            Paths.get(OUTPUT_FOLDER).toFile().mkdirs();
+//            Files.write(Paths.get(OUTPUT_FOLDER, INVERTED_INDEX_FILE_NAME), new GsonBuilder().setPrettyPrinting().create().toJson(project.invertedIndex).getBytes());
+            project.buildIndex(recipeDatas);
 
-    }
-
-
-    /**
-     * Removes rare words from inverted index
-     * @param rarityCutOffLevel number of occurences required for dictionary term to survive
-     */
-    private void filterRareWords(int rarityCutOffLevel) {
-        for(Map.Entry<String , SortedSet<Posting>> entry : invertedIndex.entrySet()){
-            if(entry.getValue().size() < rarityCutOffLevel )
-                invertedIndex.remove(entry.getKey());
         }
+        Scanner sc = new Scanner(System.in);
+        while (true) {
+            process(sc.nextLine());
+        }
+
+
+
     }
+
+    private static void process(String args) throws IOException, QueryNodeException {
+
+        String command = null;
+        String remainingArgs = "";
+        if (args.contains(" ")) {
+            command = args.substring(0, args.indexOf(" "));
+            remainingArgs = args.substring(args.indexOf(" "));
+        }
+        if (command.equals("search")) {
+            project.search(remainingArgs);
+        }
+
+    }
+
+    private void buildIndex(List<RecipeData> recipeDatas) throws IOException {
+
+        IndexWriterConfig iwConf = new IndexWriterConfig(mAnalyzer);
+        iwConf.setOpenMode(IndexWriterConfig.OpenMode.CREATE);
+        IndexWriter indexWriter = new IndexWriter(new SimpleFSDirectory(Paths.get(OUTPUT_FOLDER)), iwConf);
+        for (RecipeData recipe : recipeDatas) {
+            String groupName = recipe.category;
+            org.apache.lucene.document.Document d = new org.apache.lucene.document.Document();
+            d.add(new StringField("category",
+                    lemmatize(recipe.category), Field.Store.YES));
+            d.add(new TextField("directions",
+                    lemmatize(recipe.directions), Field.Store.YES));
+            d.add(new TextField("ingredients",
+                    lemmatize(recipe.ingredients), Field.Store.YES));
+            d.add(new TextField("description",
+                    lemmatize(recipe.description), Field.Store.YES));
+            d.add(new TextField("title",
+                    lemmatize(recipe.title), Field.Store.YES));
+            indexWriter.addDocument(d);
+        }
+        indexWriter.commit();
+        indexWriter.close();
+
+    }
+
+    private String lemmatize(String source) {
+        StringTokenizer tokenizer = new StringTokenizer(source,  " \t\n\r\f,.:;?![]'");
+        StringJoiner ret =new StringJoiner(" ");
+        while (tokenizer.hasMoreElements())
+        {
+            String token = tokenizer.nextToken();
+            token = token.toLowerCase();
+            if (token.matches("[A-Za-z]+") && !(LUCENE_STOP_WORDS.contains(token)) ) {
+                if(invertedIndex.get(token)!=null && invertedIndex.get(token).size() >= RARITY_CUT_OFF_LEVEL)
+                    ret.add(token);
+            }
+        }
+        return ret.toString();
+    }
+
+    Query buildQuery(String text) throws IOException, QueryNodeException {
+        StandardQueryParser queryParserHelper = new StandardQueryParser();
+        queryParserHelper.setAnalyzer(mAnalyzer);
+        return queryParserHelper.parse(text, "title");
+    }
+
+
+    void search(String text)
+            throws IOException, FileNotFoundException, QueryNodeException {
+        Directory fsDir = FSDirectory.open(Paths.get(OUTPUT_FOLDER));
+        DirectoryReader reader = DirectoryReader.open(fsDir);
+        IndexSearcher searcher = new IndexSearcher(reader);
+        Query q = buildQuery(text);
+        TopDocs hits = searcher.search(q, 1);
+        ScoreDoc[] scoreDocs = hits.scoreDocs;
+        for (int n = 0; n < scoreDocs.length; n++) {
+            ScoreDoc sd = scoreDocs[n];
+            int docId = sd.doc;
+            org.apache.lucene.document.Document d = searcher.doc(docId);
+            String category = d.get("category");
+            // record result in confusion matrix
+
+        }
+        System.out.print("processed query : " + text);
+        new GsonBuilder().setPrettyPrinting().create().toJson(hits);
+    }
+
+
+
+
+ 
 
     private void generateInvertedIndex() {
-        List<String> stopWordList = Arrays.asList(LUCENE_STOP_WORDS);
+        List<String> stopWordList = LUCENE_STOP_WORDS;
         invertedIndex = new ConcurrentSkipListMap<>();
-        for( int i = 0 ; i < nlpDocuments.size() ; i++)
-        {
-            for(Sentence sentence : nlpDocuments.get(i).sentences()){
-                for (String s : sentence.lemmas())
-                {
+        for (int i = 0; i < nlpDocuments.size(); i++) {
+            for (Sentence sentence : nlpDocuments.get(i).sentences()) {
+                for (String s : sentence.lemmas()) {
                     String lowercase = s.toLowerCase(Locale.ENGLISH);
-                    if(lowercase.matches("[A-Za-z]+") && !stopWordList.contains(lowercase))
-                    {
+                    if (lowercase.matches("[A-Za-z]+") && !stopWordList.contains(lowercase)) {
                         SortedSet<Posting> postings = invertedIndex.get(lowercase);
-                        if(!invertedIndex.containsKey(lowercase)){
+                        if (!invertedIndex.containsKey(lowercase)) {
                             postings = new ConcurrentSkipListSet<>();
-                            invertedIndex.put(lowercase , postings);
+                            invertedIndex.put(lowercase, postings);
                         }
                         postings.add(new Posting(i));
                     }
@@ -99,20 +202,7 @@ public class Bil681Project {
         }
 
     }
-
-    /**
-     * takes generic recipe data and returns nlp document objects
-     * @return
-     */
-    public void generateNlpDocuments(List<RecipeData> recipeDatas ) {
-        nlpDocuments = new ArrayList<>();
-        for(int i = 0 ; i < recipeDatas.size() ; i++){
-            edu.stanford.nlp.simple.Document doc = new edu.stanford.nlp.simple.Document(recipeDatas.get(i).toPlainString());
-            doc.setDocid(Integer.toString(i));
-            nlpDocuments.add(doc);
-        }
-    }
-
+ 
     /**
      * parses each file in directory to in memory Jsoup documents
      *
@@ -136,6 +226,7 @@ public class Bil681Project {
     /**
      * Parses to extract specific data into custom java pojo from recipe document. Expects very specific data format.
      * TODO find out how category field can be parsed
+     *
      * @param documents list of allrecipe.com recipe html jsoup document
      * @return list of RecipeData objects
      */
@@ -150,12 +241,19 @@ public class Bil681Project {
                 recipeData.ingredients = d.getElementsByAttributeValue("itemprop", "ingredients").html().replace("\n", ". ");
                 recipeData.servings = d.getElementById("metaRecipeServings").attr("content");
                 recipeData.duration = d.getElementsByClass("ready-in-time").html();
-                recipeData.nutrition = d.getElementsByClass("calorie-count").get(0).child(0).text();
+                try {
+                    recipeData.nutrition = d.getElementsByClass("calorie-count").get(0).child(0).text();
+                } catch (IndexOutOfBoundsException e) {
+                    // no calorie info found. just pass empty string for that
+                    recipeData.nutrition = "";
+                }
                 recipeData.directions = d.getElementsByClass("recipe-directions__list--item").html().replace("\n", ". ");
+                recipeData.category = d.getElementsByAttributeValue("data-click-id", "recipe breadcrumb 3").text();
 //            LOGGER.log(Level.INFO, recipeData.toString());
                 recipeDatas.add(recipeData);
-            }catch (NullPointerException | IndexOutOfBoundsException e){
-//                LOGGER.log(Level.SEVERE , "Failed to parse a file, omitting from document set.");
+            } catch (NullPointerException | IndexOutOfBoundsException e) {
+                e.printStackTrace();
+                LOGGER.log(Level.SEVERE, "Failed to parse a file, omitting from document set.");
 
             }
         }
@@ -163,21 +261,37 @@ public class Bil681Project {
     }
 
 
-    /**
-     * just a project specific pojo
-     */
-    public class RecipeData {
-        public String title, description, submitter, ingredients, servings, duration, directions, nutrition, category;
 
-        @Override
-        public String toString() {
-            //don't try this at home!
-            return new GsonBuilder().setPrettyPrinting().create().toJson(this);
+    public static String removeStopWords(String text) throws Exception {
+        CharArraySet stopWords = EnglishAnalyzer.getDefaultStopSet();
+        TokenStream tokenStream = new StandardTokenizer();
+        tokenStream = new StopFilter(  tokenStream, stopWords);
+        StringBuilder sb = new StringBuilder();
+        CharTermAttribute charTermAttribute = tokenStream.addAttribute(CharTermAttribute.class);
+        tokenStream.reset();
+        while (tokenStream.incrementToken()) {
+            String term = charTermAttribute.toString();
+            sb.append(term + " ");
         }
-
-        public String toPlainString() {
-            return title + " " + description + " " + submitter + " " + ingredients + " " + servings + " " + duration + " " + directions + " " + nutrition;
-        }
+        return sb.toString();
     }
+
+
+/**
+ * just a project specific pojo
+ */
+public class RecipeData {
+    public String title, description, submitter, ingredients, servings, duration, directions, nutrition, category;
+
+    @Override
+    public String toString() {
+        //don't try this at home!
+        return new GsonBuilder().setPrettyPrinting().create().toJson(this);
+    }
+
+    public String toPlainString() {
+        return title + " " + description + " " + submitter + " " + ingredients + " " + servings + " " + duration + " " + directions + " " + nutrition;
+    }
+}
 
 }

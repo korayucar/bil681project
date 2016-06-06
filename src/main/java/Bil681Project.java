@@ -1,6 +1,7 @@
 import com.google.common.base.Stopwatch;
 import com.google.gson.GsonBuilder;
 import edu.stanford.nlp.simple.Sentence;
+import org.apache.commons.io.FileUtils;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.TokenStream;
 import org.apache.lucene.analysis.core.StopFilter;
@@ -8,10 +9,13 @@ import org.apache.lucene.analysis.en.EnglishAnalyzer;
 import org.apache.lucene.analysis.standard.StandardTokenizer;
 import org.apache.lucene.analysis.tokenattributes.CharTermAttribute;
 import org.apache.lucene.analysis.util.CharArraySet;
+import org.apache.lucene.classification.ClassificationResult;
+import org.apache.lucene.classification.document.DocumentClassifier;
 import org.apache.lucene.document.Field;
 import org.apache.lucene.document.StringField;
 import org.apache.lucene.document.TextField;
 import org.apache.lucene.index.DirectoryReader;
+import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.queryparser.flexible.core.QueryNodeException;
@@ -23,6 +27,7 @@ import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.store.SimpleFSDirectory;
+import org.apache.lucene.util.BytesRef;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
@@ -44,79 +49,128 @@ import java.util.logging.Logger;
  * @author koray2, @date 4/8/16 5:56 PM
  */
 public class Bil681Project {
-
-    private static final List<String> LUCENE_STOP_WORDS =Arrays.asList( new String[]{
+    
+    private static final List<String> LUCENE_STOP_WORDS = Arrays.asList(new String[]{
             "a", "an", "and", "are", "as", "at", "be", "but", "by",
             "for", "if", "in", "into", "is", "it",
             "no", "not", "of", "on", "or", "such",
             "that", "the", "their", "then", "there", "these",
             "they", "this", "to", "was", "will", "with"});
-
-    private static final String OUTPUT_FOLDER = "outvector/index"; // relative to project root
-
+    
+    private static final String OUTPUT_FOLDER = "out/index"; // relative to project root
+    
     private static final String INVERTED_INDEX_FILE_NAME = "inverted_index.json"; // relative to output folder
-
+    
     private static final Logger LOGGER = Logger.getLogger(Bil681Project.class.getName());
-
+    
     private static final int RARITY_CUT_OFF_LEVEL = 5;
-
+    
+    private static final int NUMBER_OF_CLASSIFIERS = 13;
+    
+    
     public static final String RAW_DATA_DIRECTORY = "data"; // relative to project root
-
+    
+    public static final String[] fields = new String[]{"directions", "ingredients", "title", "description"};
+    
     Map<String, SortedSet<Posting>> invertedIndex;
-
+    
     List<edu.stanford.nlp.simple.Document> nlpDocuments;
     Analyzer mAnalyzer;
-
+    List<DocumentClassifier<BytesRef>> classifiers;
+    
     static Bil681Project project = new Bil681Project();
-
+    
     public static void main(String... args) throws IOException, QueryNodeException {
-        if(args.length > 0) {
-            project.mAnalyzer = new EnglishAnalyzer();
-            Stopwatch timer = Stopwatch.createStarted();
-            List<Document> documents = project.memoizeDocumentsUnderPath(Paths.get(RAW_DATA_DIRECTORY));
-            LOGGER.log(Level.INFO, "Taking documents to memory took : " + timer.stop().toString());
-            timer = Stopwatch.createStarted();
-            List<RecipeData> recipeDatas = project.parseDocuments(documents);
-            LOGGER.log(Level.INFO, "Parsing documents took : " + timer.stop().toString());
-            
-//            project.generateInvertedIndex();
-//            LOGGER.log(Level.INFO, "Inverted index generation took : " + timer.stop().toString());
-            
-//            Paths.get(OUTPUT_FOLDER).toFile().mkdirs();
-//            Files.write(Paths.get(OUTPUT_FOLDER, INVERTED_INDEX_FILE_NAME), new GsonBuilder().setPrettyPrinting().create().toJson(project.invertedIndex).getBytes());
-            project.buildIndex(recipeDatas);
-
+        project.mAnalyzer = new EnglishAnalyzer();
+        FileUtils.forceDelete(Paths.get(OUTPUT_FOLDER).toFile());
+        
+        if (args.length > 0) {
         }
+        Stopwatch timer = Stopwatch.createStarted();
+        List<Document> documents = project.memoizeDocumentsUnderPath(Paths.get(RAW_DATA_DIRECTORY));
+        LOGGER.log(Level.INFO, "Taking documents to memory took : " + timer.stop().toString());
+        timer = Stopwatch.createStarted();
+        List<RecipeData> recipeDatas = project.parseDocuments(documents);
+        LOGGER.log(Level.INFO, "Parsing documents took : " + timer.stop().toString());
+        Collections.shuffle(recipeDatas);
+        project.buildIndex(recipeDatas);
+        
+        IndexReader reader = DirectoryReader.open(FSDirectory.open(Paths.get(OUTPUT_FOLDER)));
+        Map<String, Analyzer> map = new HashMap<>();
+        for (String field : fields) map.put(field, project.mAnalyzer);
+        project.classifiers = new ArrayList<DocumentClassifier<BytesRef>>();
+        project.classifiers.add(
+                new SimpleNaiveBayesDocumentClassifier(reader, null, "category", map, fields));
+        for (int i = 1; i < NUMBER_OF_CLASSIFIERS; i++) {
+            project.classifiers.add(new KNearestNeighbourDocumentClassifier(reader, null, null,
+                    i, 0, 0, "category", map, fields));
+        }
+        
+        project.classifyRecipes(recipeDatas);
         Scanner sc = new Scanner(System.in);
-        while (true) {
-            process(sc.nextLine());
-        }
-
-
-
+        
+        
     }
-
-    private static void process(String args) throws IOException, QueryNodeException {
-
-        String command = null;
-        String remainingArgs = "";
-        if (args.contains(" ")) {
-            command = args.substring(0, args.indexOf(" "));
-            remainingArgs = args.substring(args.indexOf(" "));
+    
+    
+    private void classifyRecipes(List<RecipeData> recipeDatas) throws IOException {
+        
+        int index = 0;
+        int [] successFull = new int[NUMBER_OF_CLASSIFIERS];
+        int successFulNaive = 0;
+        int totalDocuments = 0;
+        for (RecipeData recipe : recipeDatas) {
+            if (recipe.category == null || recipe.category.length() == 0)
+                continue;
+            index++;
+            if (index % 2 == 1) continue;
+            String groupName = recipe.category;
+            org.apache.lucene.document.Document d = new org.apache.lucene.document.Document();
+            
+            d.add(new TextField("directions",
+                    lemmatize(recipe.directions), Field.Store.YES));
+            d.add(new TextField("ingredients",
+                    lemmatize(recipe.ingredients), Field.Store.YES));
+            d.add(new TextField("description",
+                    lemmatize(recipe.description), Field.Store.YES));
+            d.add(new TextField("title",
+                    lemmatize(recipe.title), Field.Store.YES));
+            try {
+                
+                for (int i = 0; i < this.classifiers.size(); i++) {
+                    DocumentClassifier<BytesRef> classifier = this.classifiers.get(i); 
+                    ClassificationResult<BytesRef> result = classifier.assignClass(d);
+                    String res = new String(result.getAssignedClass().bytes);
+                    System.out.println(res + " " + recipe.category + "  " + res.trim().equals(lemmatize(recipe.category)) + "  " + result.getScore());
+                    if (res.trim().equals(lemmatize(recipe.category)))
+                        successFull[i]++;
+                }
+                System.out.println();
+                System.out.println();
+            } catch (Exception e) {
+                
+            }
         }
-        if (command.equals("search")) {
-            project.search(remainingArgs);
-        }
-
+        
+        System.out.println("total = " + totalDocuments);
+        for(int i = 0 ; i < NUMBER_OF_CLASSIFIERS ; i++)
+            System.out.println(i+ "   successFull " + successFull[i]);
+        
     }
-
+    
     private void buildIndex(List<RecipeData> recipeDatas) throws IOException {
-
+        
         IndexWriterConfig iwConf = new IndexWriterConfig(mAnalyzer);
+        
         iwConf.setOpenMode(IndexWriterConfig.OpenMode.CREATE);
         IndexWriter indexWriter = new IndexWriter(new SimpleFSDirectory(Paths.get(OUTPUT_FOLDER)), iwConf);
+        int index = 0;
         for (RecipeData recipe : recipeDatas) {
-            String groupName = recipe.category;
+            if (recipe.category == null || recipe.category.length() == 0)
+                continue;
+            index++;
+            if (index % 2 == 0) continue;
+            
             org.apache.lucene.document.Document d = new org.apache.lucene.document.Document();
             d.add(new StringField("category",
                     lemmatize(recipe.category), Field.Store.YES));
@@ -128,35 +182,34 @@ public class Bil681Project {
                     lemmatize(recipe.description), Field.Store.YES));
             d.add(new TextField("title",
                     lemmatize(recipe.title), Field.Store.YES));
+            
             indexWriter.addDocument(d);
         }
         indexWriter.commit();
         indexWriter.close();
-
+        
     }
-
+    
     private String lemmatize(String source) {
-        StringTokenizer tokenizer = new StringTokenizer(source,  " \t\n\r\f,.:;?![]'");
-        StringJoiner ret =new StringJoiner(" ");
-        while (tokenizer.hasMoreElements())
-        {
+        StringTokenizer tokenizer = new StringTokenizer(source, " \t\n\r\f,.:;?![]'");
+        StringJoiner ret = new StringJoiner(" ");
+        while (tokenizer.hasMoreElements()) {
             String token = tokenizer.nextToken();
             token = token.toLowerCase();
-            if (token.matches("[A-Za-z]+") && !(LUCENE_STOP_WORDS.contains(token)) ) {
-                if(invertedIndex.get(token)!=null && invertedIndex.get(token).size() >= RARITY_CUT_OFF_LEVEL)
-                    ret.add(token);
+            if (token.matches("[A-Za-z]+") && !(LUCENE_STOP_WORDS.contains(token))) {
+                ret.add(token);
             }
         }
         return ret.toString();
     }
-
+    
     Query buildQuery(String text) throws IOException, QueryNodeException {
         StandardQueryParser queryParserHelper = new StandardQueryParser();
         queryParserHelper.setAnalyzer(mAnalyzer);
         return queryParserHelper.parse(text, "title");
     }
-
-
+    
+    
     void search(String text)
             throws IOException, FileNotFoundException, QueryNodeException {
         Directory fsDir = FSDirectory.open(Paths.get(OUTPUT_FOLDER));
@@ -171,17 +224,13 @@ public class Bil681Project {
             org.apache.lucene.document.Document d = searcher.doc(docId);
             String category = d.get("category");
             // record result in confusion matrix
-
+            
         }
         System.out.print("processed query : " + text);
         new GsonBuilder().setPrettyPrinting().create().toJson(hits);
     }
-
-
-
-
- 
-
+    
+    
     private void generateInvertedIndex() {
         List<String> stopWordList = LUCENE_STOP_WORDS;
         invertedIndex = new ConcurrentSkipListMap<>();
@@ -200,9 +249,9 @@ public class Bil681Project {
                 }
             }
         }
-
+        
     }
- 
+    
     /**
      * parses each file in directory to in memory Jsoup documents
      *
@@ -222,7 +271,7 @@ public class Bil681Project {
         });
         return documents;
     }
-
+    
     /**
      * Parses to extract specific data into custom java pojo from recipe document. Expects very specific data format.
      * TODO find out how category field can be parsed
@@ -254,18 +303,17 @@ public class Bil681Project {
             } catch (NullPointerException | IndexOutOfBoundsException e) {
                 e.printStackTrace();
                 LOGGER.log(Level.SEVERE, "Failed to parse a file, omitting from document set.");
-
+                
             }
         }
         return recipeDatas;
     }
-
-
-
+    
+    
     public static String removeStopWords(String text) throws Exception {
         CharArraySet stopWords = EnglishAnalyzer.getDefaultStopSet();
         TokenStream tokenStream = new StandardTokenizer();
-        tokenStream = new StopFilter(  tokenStream, stopWords);
+        tokenStream = new StopFilter(tokenStream, stopWords);
         StringBuilder sb = new StringBuilder();
         CharTermAttribute charTermAttribute = tokenStream.addAttribute(CharTermAttribute.class);
         tokenStream.reset();
@@ -275,23 +323,23 @@ public class Bil681Project {
         }
         return sb.toString();
     }
-
-
-/**
- * just a project specific pojo
- */
-public class RecipeData {
-    public String title, description, submitter, ingredients, servings, duration, directions, nutrition, category;
-
-    @Override
-    public String toString() {
-        //don't try this at home!
-        return new GsonBuilder().setPrettyPrinting().create().toJson(this);
+    
+    
+    /**
+     * just a project specific pojo
+     */
+    public class RecipeData {
+        public String title, description, submitter, ingredients, servings, duration, directions, nutrition, category;
+        
+        @Override
+        public String toString() {
+            //don't try this at home!
+            return new GsonBuilder().setPrettyPrinting().create().toJson(this);
+        }
+        
+        public String toPlainString() {
+            return title + " " + description + " " + submitter + " " + ingredients + " " + servings + " " + duration + " " + directions + " " + nutrition;
+        }
     }
-
-    public String toPlainString() {
-        return title + " " + description + " " + submitter + " " + ingredients + " " + servings + " " + duration + " " + directions + " " + nutrition;
-    }
-}
-
+    
 }

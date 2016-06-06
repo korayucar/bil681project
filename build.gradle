@@ -44,6 +44,9 @@ dependencies {
     compile group: 'org.apache.lucene', name: 'lucene-queryparser', version: '6.0.1'
     //hope classification library is in this
     compile group: 'org.apache.lucene', name: 'lucene-classification', version: '6.0.1'
+    // http://mvnrepository.com/artifact/commons-io/commons-io
+    compile group: 'commons-io', name: 'commons-io', version: '2.4'
+
     // Declare the dependency for your favourite test framework you want to use in your tests.
     // TestNG is also supported by the Gradle Test task. Just change the
     // testCompile dependency to testCompile 'org.testng:testng:6.8.1' and add
